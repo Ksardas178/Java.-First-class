@@ -14,7 +14,7 @@ public final class TicTacToe {
     }
 
     private boolean onField(int x, int y) {
-        if ((x > 0) && (y > 0) && (x <= size) && (y <= size)) return true;
+        if ((x >= 0) && (y >= 0) && (x < size) && (y < size)) return true;
         else return false;
     }
 
@@ -24,13 +24,13 @@ public final class TicTacToe {
 
     public void addElement(int x, int y, int el) {
         checkSize(x, y);
-        if (field[x - 1][y - 1] != 0) throw new IllegalStateException("Клетка занята");
-        else field[x - 1][y - 1] = el;
+        if (field[x][y] != 0) throw new IllegalStateException("Клетка занята");
+        else field[x][y] = el;
     }
 
     public void deleteElement(int x, int y) {
         checkSize(x, y);
-        field[x - 1][y - 1] = 0;
+        field[x][y] = 0;
     }
 
     private enum direction {
@@ -74,6 +74,11 @@ public final class TicTacToe {
             }
         }
         return maxSeqLength;
+    }
+
+    public int getElement(int x, int y){
+        checkSize(x,y);
+        return field[x][y];
     }
 }
 
