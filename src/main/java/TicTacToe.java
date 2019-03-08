@@ -3,13 +3,11 @@ import java.util.Arrays;
 import java.util.Collections;
 
 public final class TicTacToe {
-    private final int size;
     private Element[][] field;
 
     public TicTacToe(int size) {
         if (size <= 0) throw new IllegalArgumentException("Размер поля выражается натуральным числом");
         else {
-            this.size = size;
             this.field = new Element[size][size];
             for (int i = 0; i < size; i++)
                 for (int j = 0; j < size; j++) {
@@ -23,14 +21,14 @@ public final class TicTacToe {
         if (this == obj) return true;
         if (obj instanceof TicTacToe) {
             TicTacToe other = (TicTacToe) obj;
-            return (Arrays.deepEquals(this.field, other.field) && this.size == other.size);
+            return (Arrays.deepEquals(this.field, other.field) && this.field.length == other.field.length);
         }
         return false;
     }
 
     @Override
     public int hashCode() {
-        int result = this.size;
+        int result = this.field.length;
         result += 31 * Arrays.hashCode(this.field);
         return result;
     }
@@ -38,8 +36,8 @@ public final class TicTacToe {
     @Override
     public String toString() {
         StringBuilder result = new StringBuilder();
-        for (int i = 0; i < size; i++) {
-            for (int j = 0; j < size; j++) {
+        for (int i = 0; i < field.length; i++) {
+            for (int j = 0; j < field.length; j++) {
                 result.append(field[i][j]);
                 result.append('|');
             }
@@ -55,7 +53,7 @@ public final class TicTacToe {
     }
 
     private boolean onField(int x, int y) {
-        return (x >= 0) && (y >= 0) && (x < size) && (y < size);
+        return (x >= 0) && (y >= 0) && (x < field.length) && (y < field.length);
     }
 
     private void checkSize(int x, int y) {
@@ -100,8 +98,8 @@ public final class TicTacToe {
 
     public int longestSequence(Element el) {
         int maxSeqLength = 0;
-        for (int i = 0; i < size; i++) {
-            for (int j = 0; j < size; j++) {
+        for (int i = 0; i < field.length; i++) {
+            for (int j = 0; j < field.length; j++) {
                 if (field[i][j] == el) {
                     ArrayList<Integer> listOfLengths = new ArrayList<>();
                     listOfLengths.add(countElements(Direction.RIGHT, el, i, j));
