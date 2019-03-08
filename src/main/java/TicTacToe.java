@@ -73,7 +73,7 @@ public final class TicTacToe {
         field[x][y] = Element.EMPTY;
     }
 
-    private enum direction {
+    private enum Direction {
         RIGHT(1, 0),
         RIGHT_DOWN(1, 1),
         DOWN(0, 1),
@@ -82,13 +82,13 @@ public final class TicTacToe {
         private final int x;
         private final int y;
 
-        direction(int newX, int newY) {
+        Direction(int newX, int newY) {
             x = newX;
             y = newY;
         }
     }
 
-    private int countElements(direction dir, Element el, int x, int y) {
+    private int countElements(Direction dir, Element el, int x, int y) {
         int amount = 0;
         do {
             amount++;
@@ -104,10 +104,10 @@ public final class TicTacToe {
             for (int j = 0; j < size; j++) {
                 if (field[i][j] == el) {
                     ArrayList<Integer> listOfLengths = new ArrayList<>();
-                    listOfLengths.add(countElements(direction.RIGHT, el, i, j));
-                    listOfLengths.add(countElements(direction.RIGHT_DOWN, el, i, j));
-                    listOfLengths.add(countElements(direction.LEFT_DOWN, el, i, j));
-                    listOfLengths.add(countElements(direction.DOWN, el, i, j));
+                    listOfLengths.add(countElements(Direction.RIGHT, el, i, j));
+                    listOfLengths.add(countElements(Direction.RIGHT_DOWN, el, i, j));
+                    listOfLengths.add(countElements(Direction.LEFT_DOWN, el, i, j));
+                    listOfLengths.add(countElements(Direction.DOWN, el, i, j));
                     listOfLengths.add(maxSeqLength);
                     maxSeqLength = Collections.max(listOfLengths);
                 }
