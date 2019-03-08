@@ -1,36 +1,76 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 
 public final class TicTacToe {
     private final int size;
-    private int[][] field;
+    private Element[][] field;
 
     public TicTacToe(int size) {
         if (size <= 0) throw new IllegalArgumentException("Размер поля выражается натуральным числом");
         else {
             this.size = size;
-            this.field = new int[size][size];
+            this.field = new Element[size][size];
+            for (int i = 0; i < size; i++)
+                for (int j = 0; j < size; j++) {
+                    field[i][j] = Element.EMPTY;
+                }
         }
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj instanceof TicTacToe) {
+            TicTacToe other = (TicTacToe) obj;
+            return (Arrays.deepEquals(this.field, other.field) && this.size == other.size);
+        }
+        return false;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = this.size;
+        result += 31 * Arrays.hashCode(this.field);
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder result = new StringBuilder();
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
+                result.append(field[i][j]);
+                result.append('|');
+            }
+            result.append('\n');
+        }
+        return result.toString();
+    }
+
+    public enum Element {
+        X,
+        Y,
+        EMPTY
+    }
+
     private boolean onField(int x, int y) {
-        if ((x >= 0) && (y >= 0) && (x < size) && (y < size)) return true;
-        else return false;
+        return (x >= 0) && (y >= 0) && (x < size) && (y < size);
     }
 
     private void checkSize(int x, int y) {
         if (!onField(x, y)) throw new IllegalArgumentException("Выбрана клетка за пределами поля");
     }
 
-    public void addElement(int x, int y, int el) {
+    public void addElement(int x, int y, Element el) {
         checkSize(x, y);
-        if (field[x][y] != 0) throw new IllegalStateException("Клетка занята");
+        if (field[x][y] != Element.EMPTY) throw new IllegalStateException("Клетка занята");
         else field[x][y] = el;
     }
 
     public void deleteElement(int x, int y) {
         checkSize(x, y);
-        field[x][y] = 0;
+        field[x][y] = Element.EMPTY;
     }
 
     private enum direction {
@@ -48,7 +88,7 @@ public final class TicTacToe {
         }
     }
 
-    private int countElements(direction dir, int el, int x, int y) {
+    private int countElements(direction dir, Element el, int x, int y) {
         int amount = 0;
         do {
             amount++;
@@ -58,12 +98,12 @@ public final class TicTacToe {
         return amount;
     }
 
-    public int longestSequence(int el) {
+    public int longestSequence(Element el) {
         int maxSeqLength = 0;
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
                 if (field[i][j] == el) {
-                    ArrayList<Integer> listOfLengths = new ArrayList<Integer>();
+                    ArrayList<Integer> listOfLengths = new ArrayList<>();
                     listOfLengths.add(countElements(direction.RIGHT, el, i, j));
                     listOfLengths.add(countElements(direction.RIGHT_DOWN, el, i, j));
                     listOfLengths.add(countElements(direction.LEFT_DOWN, el, i, j));
@@ -76,8 +116,8 @@ public final class TicTacToe {
         return maxSeqLength;
     }
 
-    public int getElement(int x, int y){
-        checkSize(x,y);
+    public Element getElement(int x, int y) {
+        checkSize(x, y);
         return field[x][y];
     }
 }
