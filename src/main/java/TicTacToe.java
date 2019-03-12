@@ -1,6 +1,4 @@
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 
 public final class TicTacToe {
     private Element[][] field;
@@ -38,18 +36,15 @@ public final class TicTacToe {
         StringBuilder result = new StringBuilder();
         for (int i = 0; i < field.length; i++) {
             for (int j = 0; j < field.length; j++) {
-                result.append(field[i][j]);
+                result.append(field[j][i]);
+                for (int l = 0; l < Element.longest() - field[j][i].toString().length(); l++) {
+                    result.append(' ');
+                }
                 result.append('|');
             }
             result.append('\n');
         }
         return result.toString();
-    }
-
-    public enum Element {
-        X,
-        Y,
-        EMPTY
     }
 
     private boolean onField(int x, int y) {
@@ -86,32 +81,28 @@ public final class TicTacToe {
         }
     }
 
-    private int countElements(Direction dir, Element el, int x, int y) {
-        int amount = 0;
+    private Sequence countElements(Direction dir, Element el, int x, int y) {
+        Point start = new Point(x, y);
         do {
-            amount++;
             x += dir.x;
             y += dir.y;
         } while (onField(x, y) && (field[x][y] == el));
-        return amount;
+        Point end = new Point(x - dir.x, y - dir.y);
+        return new Sequence(start, end, el);
     }
 
-    public int longestSequence(Element el) {
-        int maxSeqLength = 0;
+    public Sequence longestSequence(Element el) {
+        Sequence seq = countElements(Direction.RIGHT, el, 0, 0);
         for (int i = 0; i < field.length; i++) {
-            for (int j = 0; j < field.length; j++) {
-                if (field[i][j] == el) {
-                    ArrayList<Integer> listOfLengths = new ArrayList<>();
-                    listOfLengths.add(countElements(Direction.RIGHT, el, i, j));
-                    listOfLengths.add(countElements(Direction.RIGHT_DOWN, el, i, j));
-                    listOfLengths.add(countElements(Direction.LEFT_DOWN, el, i, j));
-                    listOfLengths.add(countElements(Direction.DOWN, el, i, j));
-                    listOfLengths.add(maxSeqLength);
-                    maxSeqLength = Collections.max(listOfLengths);
-                }
-            }
+            for (int j = 0; j < field.length; j++)
+                if (field[i][j] == el)
+                    for (Direction dir : Direction.values())
+                        if (seq.length() < countElements(dir, el, i, j).length())
+                            seq = countElements(dir, el, i, j);
+
+
         }
-        return maxSeqLength;
+        return seq;
     }
 
     public Element getElement(int x, int y) {
