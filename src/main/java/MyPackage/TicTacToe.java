@@ -1,3 +1,5 @@
+package MyPackage;
+
 import java.util.Arrays;
 
 public final class TicTacToe {

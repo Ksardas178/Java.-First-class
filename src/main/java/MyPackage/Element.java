@@ -1,3 +1,5 @@
+package MyPackage;
+
 public enum Element {
     X,
     Y,

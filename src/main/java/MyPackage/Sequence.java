@@ -1,3 +1,5 @@
+package MyPackage;
+
 import static java.lang.Integer.max;
 
 public final class Sequence {//Описывает последовательность одинаковых элементов

@@ -1,3 +1,10 @@
+package MyPackage;
+
+import MyPackage.Element;
+import MyPackage.Point;
+import MyPackage.Sequence;
+import MyPackage.TicTacToe;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class TicTacToeTest {
@@ -46,6 +53,5 @@ class TicTacToeTest {
         end = new Point(1, 1);
         testSeq = new Sequence(start, end, Element.Y);
         assertEquals(testSeq, temp.longestSequence(Element.Y));
-        System.out.print(temp);
     }
 }
