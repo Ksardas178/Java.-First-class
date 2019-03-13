@@ -38,8 +38,6 @@ public final class Sequence {//Описывает последовательно
 
     @Override
     public String toString() {
-        StringBuilder result = new StringBuilder();
-        result.append('['+borders[0].toString()+", "+borders[1].toString()+", "+el.toString()+']');
-        return result.toString();
+        return ('[' + borders[0].toString() + ", " + borders[1].toString() + ", " + el.toString() + ']');
     }
 }

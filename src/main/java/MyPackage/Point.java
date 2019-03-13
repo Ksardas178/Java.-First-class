@@ -36,8 +36,6 @@ public final class Point {
 
     @Override
     public String toString() {
-        StringBuilder result = new StringBuilder();
-        result.append("("+x+", "+y+')');
-        return result.toString();
+        return ("(" + x + ", " + y + ')');
     }
 }
