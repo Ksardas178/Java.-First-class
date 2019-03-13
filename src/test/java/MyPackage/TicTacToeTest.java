@@ -1,10 +1,5 @@
 package MyPackage;
 
-import MyPackage.Element;
-import MyPackage.Point;
-import MyPackage.Sequence;
-import MyPackage.TicTacToe;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 class TicTacToeTest {

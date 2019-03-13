@@ -4,16 +4,19 @@ public final class Point {
     private final int x;
     private final int y;
 
-    public Point(int newX, int newY) {
+    //package-private
+    Point(int newX, int newY) {
         x = newX;
         y = newY;
     }
 
-    public int getX() {
+    //package-private
+    int getX() {
         return x;
     }
 
-    public int getY() {
+    //package-private
+    int getY() {
         return y;
     }
 

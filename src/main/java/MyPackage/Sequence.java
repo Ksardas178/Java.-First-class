@@ -1,5 +1,7 @@
 package MyPackage;
 
+import java.util.Arrays;
+
 import static java.lang.Integer.max;
 
 public final class Sequence {//Описывает последовательность одинаковых элементов
@@ -13,7 +15,8 @@ public final class Sequence {//Описывает последовательно
         borders[1] = end;
     }
 
-    public int length() {
+    //package-private
+    int length() {
         if (el == null) throw new IllegalStateException("Последовательность пуста");
         return max(borders[1].getY() - borders[0].getY(), Math.abs(borders[1].getX() - borders[0].getX()));
     }
@@ -32,7 +35,7 @@ public final class Sequence {//Описывает последовательно
     @Override
     public int hashCode() {
         int result = this.el.hashCode();
-        result += 17 * this.borders.hashCode();
+        result += 17 * Arrays.hashCode(this.borders);
         return result;
     }
 
