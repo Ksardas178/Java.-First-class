@@ -18,7 +18,7 @@ public final class Sequence {//Описывает последовательно
     //package-private
     int length() {
         if (el == null) throw new IllegalStateException("Последовательность пуста");
-        return max(borders[1].getY() - borders[0].getY(), Math.abs(borders[1].getX() - borders[0].getX()));
+        return max(Math.abs(borders[1].getY() - borders[0].getY()), Math.abs(borders[1].getX() - borders[0].getX()));
     }
 
     @Override

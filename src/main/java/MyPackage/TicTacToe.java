@@ -29,7 +29,7 @@ public final class TicTacToe {
     @Override
     public int hashCode() {
         int result = this.field.length;
-        result += 31 * Arrays.hashCode(this.field);
+        result += 31 * Arrays.deepHashCode(this.field);
         return result;
     }
 
@@ -94,12 +94,12 @@ public final class TicTacToe {
     }
 
     public Sequence longestSequence(Element el) {
-        Sequence seq = countElements(Direction.RIGHT, el, 0, 0);
+        Sequence seq = null;
         for (int i = 0; i < field.length; i++) {
             for (int j = 0; j < field.length; j++)
                 if (field[i][j] == el)
                     for (Direction dir : Direction.values())
-                        if (seq.length() < countElements(dir, el, i, j).length())
+                        if (seq == null || seq.length() < countElements(dir, el, i, j).length())
                             seq = countElements(dir, el, i, j);
 
 
